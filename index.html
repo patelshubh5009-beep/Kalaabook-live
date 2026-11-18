@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KalaaBook | Book Top Salons & Independent Artists</title>
     <meta name="description" content="Discover and book verified independent beauty artists, mehendi experts, nail technicians, and premier salons.">
-    <!-- Tailwind CSS CDN for rapid styling -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -56,13 +56,13 @@
         <div class="max-w-3xl mx-auto bg-obsidian border border-champagne/30 rounded-2xl p-3 shadow-2xl flex flex-col sm:flex-row gap-3">
             <div class="flex-1 flex items-center px-4 bg-white/5 rounded-xl border border-white/10">
                 <i class="fas fa-search text-champagne mr-3"></i>
-                <input type="text" placeholder="Search service (e.g., Bridal Mehendi, Nail Art)" class="w-full bg-transparent py-3 text-white placeholder-gray-400 focus:outline-none text-sm">
+                <input type="text" id="searchInput" placeholder="Search service (e.g., Bridal Mehendi, Nail Art)" class="w-full bg-transparent py-3 text-white placeholder-gray-400 focus:outline-none text-sm">
             </div>
             <div class="flex-1 flex items-center px-4 bg-white/5 rounded-xl border border-white/10">
                 <i class="fas fa-map-marker-alt text-champagne mr-3"></i>
-                <input type="text" placeholder="Location (e.g., Nadiad, Oshawa)" class="w-full bg-transparent py-3 text-white placeholder-gray-400 focus:outline-none text-sm">
+                <input type="text" id="locationInput" placeholder="Location (e.g., Nadiad, Oshawa)" class="w-full bg-transparent py-3 text-white placeholder-gray-400 focus:outline-none text-sm">
             </div>
-            <button class="bg-champagne text-obsidian px-8 py-3 rounded-xl font-semibold hover:bg-champagneDark transition">
+            <button id="searchBtn" class="bg-champagne text-obsidian px-8 py-3 rounded-xl font-semibold hover:bg-champagneDark transition">
                 Search
             </button>
         </div>
@@ -75,6 +75,11 @@
             <button class="px-5 py-2 rounded-full border border-white/10 hover:border-champagne/40 text-gray-300 text-xs font-medium transition">Bridal Makeup</button>
             <button class="px-5 py-2 rounded-full border border-white/10 hover:border-champagne/40 text-gray-300 text-xs font-medium transition">Home Service</button>
         </div>
+
+        <!-- Results Container (Populated by Supabase) -->
+        <div id="resultsContainer" class="max-w-5xl mx-auto mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+            <!-- Dynamic search cards will appear here -->
+        </div>
     </section>
 
     <!-- Footer -->
@@ -82,5 +87,51 @@
         <p>&copy; 2026 KalaaBook. All rights reserved.</p>
     </footer>
 
+    <!-- Supabase Client Library & Search Logic -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Replace with your actual Supabase project credentials
+        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function handleSearch() {
+            const searchTerm = document.getElementById('searchInput').value;
+            const locationTerm = document.getElementById('locationInput').value;
+            const resultsContainer = document.getElementById('resultsContainer');
+
+            resultsContainer.innerHTML = '<p class="text-gray-400 col-span-full text-center">Searching artists...</p>';
+
+            const { data, error } = await supabase
+                .from('artists')
+                .select('*')
+                .ilike('service_name', `%${searchTerm}%`)
+                .ilike('location', `%${locationTerm}%`);
+
+            if (error) {
+                console.error('Error fetching data:', error);
+                resultsContainer.innerHTML = '<p class="text-red-400 col-span-full text-center">Error loading results. Please check your Supabase keys.</p>';
+            } else if, (!data || data.length === 0) {
+                resultsContainer.innerHTML = '<p class="text-gray-400 col-span-full text-center">No artists found matching your criteria.</p>';
+            } else {
+                resultsContainer.innerHTML = '';
+                data.forEach(artist => {
+                    const card = `
+                        <div class="bg-white/5 border border-champagne/20 rounded-2xl p-5 hover:border-champagne/60 transition">
+                            <h3 class="text-lg font-serif font-bold text-champagne">${artist.name}</h3>
+                            <p class="text-xs text-gray-400 mt-1"><i class="fas fa-map-marker-alt text-champagne mr-1"></i> ${artist.location}</p>
+                            <p class="text-sm text-gray-300 mt-3">${artist.service_name}</p>
+                            <button class="mt-5 w-full bg-champagne/10 border border-champagne/40 text-champagne py-2 rounded-xl text-xs font-medium hover:bg-champagne hover:text-obsidian transition">
+                                Book Now
+                            </button>
+                        </div>
+                    `;
+                    resultsContainer.innerHTML += card;
+                });
+            }
+        }
+
+        document.getElementById('searchBtn').addEventListener('click', handleSearch);
+    </script>
 </body>
 </html>
