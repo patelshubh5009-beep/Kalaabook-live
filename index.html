@@ -3,18 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KalaaBook | Book Top Salons & Independent Beauty Artists</title>
+    <title>KalaaBook | Luxury Beauty Marketplace</title>
     
-    <!-- SEO Meta Tags -->
+    <!-- SEO & Growth Meta Tags -->
     <meta name="description" content="Discover and book verified independent beauty artists, mehendi experts, nail technicians, and premier luxury salons on KalaaBook.">
     <meta name="keywords" content="mehendi artists, nail art, bridal makeup, luxury salons, book beauty artists, KalaaBook">
-    <meta name="author" content="KalaaBook">
-    
-    <!-- Open Graph Tags for Social Sharing -->
-    <meta property="og:title" content="KalaaBook | Luxury Beauty & Grooming Marketplace">
-    <meta property="og:description" content="Connect with premier salons and independent home-service artists for mehendi, nails, and bridal styling.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://kalaabook.com">
+
+    <!-- Global site tag (gtag.js) - Google Analytics & Ads -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JGWK0XY7J6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('consent', 'default', {
+            'ad_storage': 'granted',
+            'ad_user_data': 'granted',
+            'ad_personalization': 'granted',
+            'analytics_storage': 'granted'
+        });
+        gtag('config', 'G-JGWK0XY7J6');
+        gtag('config', 'AW-741508231');
+    </script>
+
+    <!-- BING Ads global code -->
+    <script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"5307053"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
+    <script>
+        window.uetq = window.uetq || [];
+        window.uetq.push('consent', 'default', { 'ad_storage': 'granted' });
+    </script>
+
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('set', 'autoConfig', false, '1074611005929279');
+        fbq('consent', 'grant');
+        fbq('init', '1074611005929279');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1074611005929279&ev=PageView&noscript=1"/></noscript>
+    <!-- End Facebook Pixel Code -->
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -39,11 +73,9 @@
     <header class="border-b border-champagne/20 sticky top-0 bg-obsidian/95 backdrop-blur z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <span class="text-2xl font-serif font-bold tracking-wider text-champagne">KalaaBook</span>
-            <div class="flex items-center space-x-4">
-                <button id="openModalBtn" class="bg-champagne text-obsidian px-5 py-2.5 rounded-full font-medium text-sm hover:bg-champagneDark transition shadow-lg">
-                    Join as Artist
-                </button>
-            </div>
+            <button id="openModalBtn" class="bg-champagne text-obsidian px-5 py-2.5 rounded-full font-medium text-sm hover:bg-champagneDark transition shadow-lg">
+                Join as Artist
+            </button>
         </div>
     </header>
 
@@ -115,8 +147,7 @@
     <!-- Supabase Integration Script -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // Replace 'YOUR_SUPABASE_URL' with your project URL from Supabase settings
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+        const SUPABASE_URL = 'https://qreawwce0ebjswobahrig.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_QreawwC_0ebjswoBAHrig_Ixzry...';[cite: 1]
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
